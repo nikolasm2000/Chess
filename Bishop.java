@@ -1,59 +1,16 @@
 
-public class Bishop extends Piece{
-
-	public String color;
+public class Bishop extends Piece {
 	
-	public Bishop(String color){
-		this.color = color;
-	}
-	
-	@Override
-	public boolean validateMove(Piece[][] board, int currentRow, int currentCol, int newRow, int newCol) {
-		
-		if(currentRow == newRow || currentCol == newCol){
-			//Did not move diagonally
-			return false;
+	  public Bishop(int player){
+			super(player, "images2/Bishop" + player +".png");
 		}
-		
-		if(Math.abs(newRow - currentRow) != Math.abs(newCol - currentCol)){
-			return false;
-		}
-		
-		int rowOffset, colOffset;
-		
-		if(currentRow < newRow){
-			rowOffset = 1;
-		}else{
-			rowOffset = -1;
-		}
-		
-		if(currentCol < newCol){
-			colOffset = 1;
-		}else{
-			colOffset = -1;
-		}
-		
-		int y = currentCol + colOffset;
-		for(int x = currentRow + rowOffset; x != newRow; x += rowOffset){
-			
-			if(board[x][y] != null){
+	  
+	public boolean isValidMove(Location from, Location to, Piece[][] b) {
+		if(Math.abs(from.getColumn()-to.getColumn())!= Math.abs(from.getRow()-to.getRow()) || (b[to.getColumn()][to.getRow()]!=null &&b[to.getColumn()][to.getRow()].getPlayer()==getPlayer()))
 				return false;
-			}
-			
-			y += colOffset;
-		}
 		
-		return true;
+		
+			return true;
 		
 	}
-	
-	public String getColor(){
-		return this.color;
-	}
-	
-	public String toString(){
-		return color.charAt(0) + "B";
-		
-	}
-
 }
